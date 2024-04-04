@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import {
   Container,
@@ -34,7 +34,7 @@ export default function SignupForm({ handleRegOrLog }) {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      signInWithEmailAndPassword(auth, email, password).then(
+      createUserWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
           console.log(userCredential);
         }

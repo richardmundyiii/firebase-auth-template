@@ -1,5 +1,3 @@
-/*eslint-disable no-undef*/
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -35,13 +33,18 @@ export default function SignupForm({ handleRegOrLog }) {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      signInWithEmailAndPassword(auth, email, password).then(
-        (userCredential) => {
-          console.log(userCredential);
-        }
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
       );
+      console.log("User signed in:", userCredential.user);
+      // Redirect or do something else upon successful sign-in
     } catch (error) {
-      console.log(error);
+      console.error("Error signing in:", error.code, error.message);
+      setError(
+        "Failed to sign in. Please check your credentials and try again."
+      );
     }
   }
 
